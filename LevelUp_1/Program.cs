@@ -95,4 +95,20 @@ app.MapGet("/questionsByDomainId/{domainId}", async (int domainId) =>
     }
 }).WithTags("Questions By Domain");
 
+
+app.MapGet("/QnAs/{domainId}", async (int domainId) =>
+{
+    List<QnA> questions = await AssessmentRepository.GetQnA(domainId);
+
+    if (questions != null)
+    {
+        return Results.Ok(questions);
+    }
+    else
+    {
+        return Results.BadRequest();
+    }
+})
+.WithTags("QnA");
+
 app.Run();
